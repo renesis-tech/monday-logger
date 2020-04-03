@@ -1,0 +1,25 @@
+{
+    "name": "renesis-tech/monday-logger",
+    "description": "Test",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Syed Faisal Kazmi",
+            "email": "sfkazmi0@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Renesis\\MondayLogger\\" : "src/"
+        }
+    },
+    "extra": {
+        "laravel" : {
+            "providers" : [
+                "Renesis\\MondayLogger\\ServiceProvider\\MondayLoggerServiceProvider"
+            ]
+        }
+    }
+}
