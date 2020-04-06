@@ -19,6 +19,11 @@ class MondayLoggerServiceProvider extends ServiceProvider
         $this->publishConfigurations();
     }
 
+    /**
+     * Copy configuration file to config directory
+     *
+     * @author Syed Faisal <sfkazmi0@gmail.com>
+     */
     public function publishConfigurations()
     {
         $this->publishes([

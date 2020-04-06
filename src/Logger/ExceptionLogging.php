@@ -3,27 +3,54 @@
 
 namespace Renesis\MondayLogger\Logger;
 
-
-use Illuminate\Support\Facades\Log;
 use Renesis\MondayLogger\Monday\MondayConfiguration;
-
 class ExceptionLogging
 {
+    /**
+     * If acting user is authenticated or not
+     *
+     * @var $authentication
+     */
     protected $authentication;
 
+    /**
+     * Get Auth user
+     *
+     * @var $authUser
+     */
     protected $authUser;
 
+    /**
+     * Define log level Exception | Info
+     *
+     * @var $level
+     */
     protected $level;
 
+    /**
+     * Monday Logger configurations array
+     *
+     * @var $configurations
+     */
     protected $configurations = [];
 
+    /**
+     * Reporting is enabled in configuration if true then send logs to monday.com
+     *
+     * @var $enableReporting
+     */
     protected $enableReporting = false;
+
     /**
      * @var MondayConfiguration
      */
     private $mondayConfiguration;
 
 
+    /**
+     * ExceptionLogging constructor.
+     * @param $app
+     */
     public function __construct($app)
     {
         $this->authStatus();
@@ -33,6 +60,12 @@ class ExceptionLogging
 
     }
 
+    /**
+     * Update reporting status variable
+     *
+     * @param $app
+     * @author Syed Faisal <sfkazmi0@gmail.com>
+     */
     public function reportingStatus($app)
     {
         if (isset($this->configurations['enabled'])) {
@@ -45,6 +78,12 @@ class ExceptionLogging
         }
     }
 
+    /**
+     * Check if user is authenticated then update auth user object
+     *
+     * @return $this
+     * @author Syed Faisal <sfkazmi0@gmail.com>
+     */
     public function authStatus()
     {
         //TODO: Implement configuration check if auth status is enabled in configurations
@@ -56,6 +95,12 @@ class ExceptionLogging
         return $this;
     }
 
+    /**
+     * Report Exception to monday.com
+     *
+     * @param \Exception $exception
+     * @author Syed Faisal <sfkazmi0@gmail.com>
+     */
     public function report(\Exception $exception)
     {
         $this->level = 'Exception';
@@ -70,6 +115,13 @@ class ExceptionLogging
         $this->mondayConfiguration->reportToMonday($error);
     }
 
+    /**
+     * Prepare exception data and error message to report
+     *
+     * @param \Exception $exception
+     * @return array
+     * @author Syed Faisal <sfkazmi0@gmail.com>
+     */
     public function prepareExceptionMessage(\Exception $exception)
     {
         $message = '['.$this->level.'] '.$exception->getMessage();
@@ -89,6 +141,12 @@ class ExceptionLogging
         ];
     }
 
+    /**
+     * Report Info level exception to monday.com
+     *
+     * @param \Exception $exception
+     * @author Syed Faisal <sfkazmi0@gmail.com>
+     */
     public function info(\Exception $exception)
     {
         $this->level = 'INFO';
