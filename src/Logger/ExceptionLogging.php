@@ -15,16 +15,34 @@ class ExceptionLogging
 
     protected $level;
 
+    protected $configurations = [];
+
+    protected $enableReporting = false;
     /**
      * @var MondayConfiguration
      */
     private $mondayConfiguration;
 
 
-    public function __construct()
+    public function __construct($app)
     {
         $this->authStatus();
+        $this->configurations =  $app['config']->get('monday-logger');
+        $this->reportingStatus($app);
         $this->mondayConfiguration = new MondayConfiguration();
+
+    }
+
+    public function reportingStatus($app)
+    {
+        if (isset($this->configurations['enabled'])) {
+            $this->enableReporting = $this->configurations['enabled'] ?? false;
+        }else {
+            $environment = $app->bound('env') ? $app->environment() : 'local';
+            if ($environment == 'production') {
+                $this->enableReporting = true;
+            }
+        }
     }
 
     public function authStatus()
@@ -42,17 +60,19 @@ class ExceptionLogging
     {
         $this->level = 'Exception';
 
-//        dd($this->mondayConfiguration->test());
+        if (!$this->enableReporting){
+            return;
+        }
 
         // TODO: Implement if reporting is enabled in configurations
         $error = $this->prepareExceptionMessage($exception);
 
-        $this->mondayConfiguration->createItem($error);
+        $this->mondayConfiguration->reportToMonday($error);
     }
 
     public function prepareExceptionMessage(\Exception $exception)
     {
-        $message = $exception->getMessage();
+        $message = '['.$this->level.'] '.$exception->getMessage();
 
         $file = $exception->getFile();
 
@@ -67,7 +87,15 @@ class ExceptionLogging
             'user' => $this->authUser,
             'authentication' => $this->authentication
         ];
+    }
 
+    public function info(\Exception $exception)
+    {
+        $this->level = 'INFO';
+
+        $error = $this->prepareExceptionMessage($exception);
+
+        $this->mondayConfiguration->reportToMonday($error);
     }
 
 }
