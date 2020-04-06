@@ -22,5 +22,6 @@
                 "Renesis\\MondayLogger\\ServiceProvider\\MondayLoggerServiceProvider"
             ]
         }
-    }
+    },
+    "prefer-stable": true
 }

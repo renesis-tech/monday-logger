@@ -30,7 +30,7 @@ Next you have to set monday.con configurations in ```.env``` file.
 
 2. Set Monday.com Board ID with key ```MONDAY_BOARD_ID```
 
-3. Set Monday's Board group id with key ```MONDAY_BOARD_ID```
+3. Set Monday's Board group id with key ```MONDAY_GROUP_ID```
 
 4. Set ```MONDAY_LOGGER_ENABLED``` to enable and disable monday.com logger, default is true.
 
