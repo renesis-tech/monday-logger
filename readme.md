@@ -1,8 +1,8 @@
-##Laravel Monday Logger
+## Laravel Monday Logger
 
 Laravel monday logger is laravel plugin to send exception updates to Monday.com
 
-###Installation
+### Installation
 
 This package is compatible with laravel 5.4+.
 Package can be installed using composer 
@@ -22,7 +22,7 @@ Add Facade to your ```config/app.php```
 'MondayLogger' => \Renesis\MondayLogger\Facade\MondayLogger::class,
 ```
 
-###Monday.com Configurations
+### Monday.com Configurations
 
 Next you have to set monday.con configurations in ```.env``` file. 
 
@@ -34,7 +34,8 @@ Next you have to set monday.con configurations in ```.env``` file.
 
 4. Set ```MONDAY_LOGGER_ENABLED``` to enable and disable monday.com logger, default is true.
 
-######!!!Without setting these configuration, package will not work.!!!
+###### !!!Without setting these configuration, package will not work.!!!
+
 Here is how you can generate monday.com api v2 key [Monday.com Developers](https://monday.com/developers/v2).
 
 Next you can publish configuration file by using this command 
@@ -55,7 +56,7 @@ return [
 ];
 ```
 
-###Usage
+### Usage
 
 To log each exception to monday.com call MondayLogger facade report method in report function of ```app/Exceptions/Handler.php```
 ```$xslt
