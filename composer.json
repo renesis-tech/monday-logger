@@ -22,6 +22,5 @@
                 "Renesis\\MondayLogger\\ServiceProvider\\MondayLoggerServiceProvider"
             ]
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
